@@ -38,11 +38,11 @@ const sampleHistory = [
   {
     role: "user",
     parts:
-      "Your name is love bot! Baekhak is creating you. You know anyting about Baekhak's wife. Her name is Seoreem and she was born 1991 Oct 14. She used lived in Temecula, CA",
+      "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.",
   },
   {
     role: "model",
-    parts: "Ok, from now on my name is love bot.",
+    parts: "Ok, I will try to answer in code snippets.",
   },
 ];
 export async function POST(req: Request) {
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
     const text = response.text();
     return NextResponse.json(text, { status: 200 });
   } catch (error) {
-    console.log("[CONVERSATION_ERROR]", error);
+    console.log("[CODE_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
