@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { useState } from "react";
 import { set } from "zod";
+import { toast } from "react-hot-toast";
 
 interface SubscriptionButtonProps {
   isPro: boolean;
@@ -22,7 +23,7 @@ export const SubscriptionButton = ({
 
       window.location.href = response.data.url;
     } catch (error) {
-      console.log("BILLING_ERROR", error);
+      toast.error("BILLING_ERROR");
     } finally {
       setLoading(false);
     }
