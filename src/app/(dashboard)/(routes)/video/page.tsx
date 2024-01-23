@@ -36,7 +36,7 @@ const VideoPage = () => {
 
       const response = await axios.post("/api/video", values);
 
-      setVideo(response.data[0]);
+      setVideo(response.data);
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -88,6 +88,9 @@ const VideoPage = () => {
               </Button>
             </form>
           </Form>
+        </div>
+        <div className="text-center mt-4 p-4 font-bold text-2xl bg-black/10 rounded-lg">
+          Live Generation Takes too long below result is only sample.
         </div>
         <div className="space-y-4 mt-4">
           {isLoading && (

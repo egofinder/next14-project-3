@@ -157,6 +157,9 @@ const ImagePage = () => {
             </form>
           </Form>
         </div>
+        <div className="text-center mt-4 p-4 font-bold text-2xl bg-black/10 rounded-lg">
+          Live Generation Takes too long below result is only sample.
+        </div>
         <div className="space-y-4 mt-4">
           {isLoading && (
             <div className="p-20">

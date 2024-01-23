@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     }
 
     const output =
-      "https://replicate.delivery/pbxt/dZ0OPt03KD75PReKbe5iIzoxeRmlLGgI8ShzAZEjv7nn2CdkA/out.wav";
+      "https://replicate.delivery/pbxt/UFId0epQADTtHy24eWRjevck9iqIbMg8zjiyy4UcRVB1vZEkA/out.wav";
     return NextResponse.json(output, { status: 200 });
   } catch (error) {
     console.log("[MUSIC_ERROR]", error);
