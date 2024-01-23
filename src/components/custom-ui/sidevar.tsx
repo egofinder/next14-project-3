@@ -83,7 +83,7 @@ const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
           </div>
           {/* TODO:임의 cn 함수 이용해서 클래스 를 추가하는 방법 더 공부하기. */}
           <h1 className={cn("text-2xl font-bold", montserrat.className)}>
-            Test Site
+            Nextjs Project 3
           </h1>
         </Link>
         <div className="space-y-1">
