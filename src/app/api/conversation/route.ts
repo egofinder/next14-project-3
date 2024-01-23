@@ -5,6 +5,9 @@ import {
   HarmCategory,
 } from "@google/generative-ai";
 import { NextResponse } from "next/server";
+import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
+
 // Access your API key as an environment variable (see "Set up your API key" above)
 const apiKey = process.env.GOOGLE_API_KEY || ""; // Set a default value if the environment variable is undefined
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -63,8 +66,16 @@ export async function POST(req: Request) {
       return new NextResponse("Message is required", { status: 400 });
     }
 
-    console.table(sampleHistory);
-    console.table(prevConversation);
+    const freeTrial = await checkApiLimit();
+    const isPro = await checkSubscription();
+
+    if (!freeTrial && !isPro) {
+      return new NextResponse("Free trial limit reached", { status: 403 });
+    }
+
+    // console.table(sampleHistory);
+    // console.table(prevConversation);
+
     const chat = model.startChat({
       history:
         prevConversation.length > 0
@@ -77,6 +88,11 @@ export async function POST(req: Request) {
 
     const msg = prompt.parts;
     const result = await chat.sendMessage(msg);
+
+    if (!isPro) {
+      await increaseApiLimit();
+    }
+
     const response = await result.response;
     const text = response.text();
     return NextResponse.json(text, { status: 200 });

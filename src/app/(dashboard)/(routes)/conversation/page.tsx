@@ -19,8 +19,10 @@ import { Loader } from "@/components/custom-ui/loader";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/custom-ui/user-avatar";
 import { BotAvatar } from "@/components/custom-ui/bot-avatar";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const ConverstaionPage = () => {
+  const proModal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<InputContent[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,8 +56,10 @@ const ConverstaionPage = () => {
       ]);
 
       form.reset();
-    } catch (error) {
-      // TODO: Open Pro Model
+    } catch (error: any) {
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
